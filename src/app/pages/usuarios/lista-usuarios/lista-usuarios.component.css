@@ -1,0 +1,22 @@
+.container {
+    /*display: flex;
+    flex-direction: column;*/
+}
+.data-table {
+    width: 100%;
+    height: calc(100vh - 250px);
+    overflow: auto;
+    margin: 15px auto;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+    margin: 15px auto;
+}
+
+.float-botton-right {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+}

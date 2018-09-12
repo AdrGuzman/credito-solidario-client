@@ -1,0 +1,75 @@
+<div>
+  <form [formGroup]="formularioUsuario" (ngSubmit)="onSubmit()" novalidate>
+    <mat-card class="datos-usuario">
+      <mat-card-header>
+        <h1>Datos de usuario</h1>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-toolbar color="primary">
+          <mat-toolbar-row>
+            <span class="espacio-toolbar"></span>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>thumb_down</mat-icon>
+                <span>Dar de baja</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>lock</mat-icon>
+                <span>Cambiar contraseña</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>add</mat-icon>
+                <span>Asignar rol</span>
+              </button>
+            </mat-menu>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Usuario" id="usuario" formControlName="usuario" name="usuario" class="ancho-completo">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Nombre" id="nombre" formControlName="nombre" name="nombre" class="ancho-completo">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Correo" id="correo" formControlName="correo" name="correo" class="ancho-completo">
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </form>
+
+  <mat-card>
+    <mat-card-header>
+      <h1>Roles asignados</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table #table matSort aria-label="Elements" class="data-table">
+        <!-- Columna Id rol -->
+        <ng-container matColumnDef="rol_id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rol ID</th>
+          <td mat-cell *matCellDef="let row">{{row.rolId}}</td>
+        </ng-container>
+
+        <!-- Columna Nombre -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let row">{{row.nombre}}</td>
+        </ng-container>
+
+        <!-- Columna Detalle -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+            <button mat-button (click)="abrirDialogoDetalle(row.rol_id)" color="primary"><mat-icon>remove_red_eye</mat-icon></button>
+          </td>
+        </ng-container>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

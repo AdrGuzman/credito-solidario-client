@@ -1,0 +1,22 @@
+<div>
+  <form [formGroup]="formularioUsuario" (ngSubmit)="onSubmit()" novalidate>
+    <mat-card class="edicion-usuario">
+      <mat-card-header><h1>Datos de usuario</h1></mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input type="usuario" matInput placeholder="Usuario" id="usuario" formControlName="usuario" name="usuario" class="ancho-completo">
+        </mat-form-field>        
+        <mat-form-field>
+          <input type="nombre" matInput placeholder="Nombre" id="nombre" formControlName="nombre" name="nombre" class="ancho-completo">
+        </mat-form-field>        
+        <mat-form-field>
+          <input type="email" matInput placeholder="Correo" id="correo" formControlName="correo" name="correo" class="ancho-completo">
+        </mat-form-field> 
+      </mat-card-content>
+      <mat-card-actions>
+          <button mat-flat-button color="primary" type="submit">Confirmar<i class="material-icons">check</i></button>
+          <button mat-flat-button color="warn" type="button" (click)="onNoClick()">Cancelar<i class="material-icons">clear</i></button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

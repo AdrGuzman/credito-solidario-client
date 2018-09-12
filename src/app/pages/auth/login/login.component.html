@@ -1,0 +1,21 @@
+<form [formGroup]="formularioInicio" (ngSubmit)="onSubmit()" novalidate>
+  <mat-grid-list cols="1" rowHeight="3:1">
+    <mat-grid-tile>
+      <mat-card class="inicio-sesion">
+        <mat-card-header><h1>Inicio de sesión</h1></mat-card-header>
+        <mat-card-content>
+          <mat-form-field class="ancho-completo">
+            <input type="usuario" matInput placeholder="usuario" id="usuario" formControlName="usuario" name="usuario" >
+          </mat-form-field>
+          <mat-form-field class="ancho-completo">
+            <input matInput type="password" placeholder="contraseña" id="contrasenia" formControlName="contrasenia" name="contrasenia">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions class="derecha">
+          <button mat-flat-button color="primary" type="submit">Iniciar<i class="material-icons">check</i></button>
+          <button mat-flat-button color="warn" type="button">Cancelar<i class="material-icons">clear</i></button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
