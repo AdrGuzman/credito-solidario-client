@@ -18,11 +18,12 @@ import { MainNavComponent } from './layout/main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
 // Angular Material modules
-import { MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatMenuModule, MATERIAL_SANITY_CHECKS } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpErrorHandler } from './shared/_services/http-handle-error.service';
 import { AppHttpInterceptorService } from './shared/_services/http-interceptor.service';
 
@@ -50,6 +51,7 @@ import { AppHttpInterceptorService } from './shared/_services/http-interceptor.s
     MatMenuModule,
     MatDividerModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     FlexLayoutModule
   ],

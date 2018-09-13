@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 // Importaciones de la aplicación
 import { UsuarioService } from '../_services/usuario.service';
-import { Usuario } from '../usuario';
+import { Usuario } from '../../../shared/modelos/usuario';
 
 @Component({
   selector: 'app-registro-usuario',

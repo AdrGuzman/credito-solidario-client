@@ -14,6 +14,7 @@ import { AuthService } from  '../../pages/auth/_services/auth.service';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent {
+  estaCargando: boolean = false;
 
   public constructor(private titleTagService: Title, public auth: AuthService, private router: Router) {}
 
@@ -23,17 +24,27 @@ export class MainNavComponent {
 
   ngOnInit() {
     if (this.auth.estaAutenticado()) {
-      const myObserver = {
-        next: x => this.onObtenerRoles(x.id)
-      };
-      this.auth.obtenerUsuario().subscribe(myObserver);
+      /*const myObserver = {
+        next: x => this.onObtenerSistemas(x.id)
+      };*/
+
+      this.auth.obtenerUsuario().subscribe();
       //this.auth.obtenerRoles(this.auth.usuarioActual.id).subscribe();
     }
   }
 
-  onObtenerRoles(id: number) {
-    this.auth.obtenerRoles(id).subscribe()
+  onObtenerSistemas(id: number) {
+    this.estaCargando = true;
+    const observer = {
+      next: x => console.log(),
+      complete: () => this.estaCargando = false
+    }
+    this.auth.obtenerSistemas(id).subscribe(observer);
   }
+
+  /*onObtenerRoles(id: number) {
+    this.auth.obtenerRoles(id).subscribe()
+  }*/
 
   onLogout() {
     this.auth.onLogout().subscribe();

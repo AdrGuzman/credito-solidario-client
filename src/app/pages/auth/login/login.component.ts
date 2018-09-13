@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Importaciones de la aplicación
-import { Usuario } from './../../usuarios/usuario';
+import { Usuario } from '../../../shared/modelos/usuario';
 import { AuthService } from './../_services/auth.service';
 
 @Component({
@@ -14,6 +14,7 @@ import { AuthService } from './../_services/auth.service';
 export class LoginComponent implements OnInit {
   formularioInicio: FormGroup;
   error: any;
+  estaCargando: boolean = false;
   usuario: Usuario = new Usuario();
   returnUrl: string;
 
@@ -33,9 +34,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.estaCargando = true;
     this.authService.onLogin(this.formularioInicio.value).subscribe(
       (response) => {
-        this.router.navigate(['/usuarios'])
+        this.estaCargando = false;
+        this.router.navigate(['/usuarios']);
       },
       (response) => {
         if (response.status === 422) {
@@ -43,6 +46,7 @@ export class LoginComponent implements OnInit {
             this.error = `${response.error[err]}`;
           });
         } else {
+          this.estaCargando = false;
           this.error = response.error;
         }
       }

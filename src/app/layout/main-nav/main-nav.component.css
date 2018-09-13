@@ -53,3 +53,8 @@ mat-toolbar a {
     display: none;
   }*/
 }
+
+.spinner-progreso {
+  margin: 0;
+  padding: 0 !important;
+}

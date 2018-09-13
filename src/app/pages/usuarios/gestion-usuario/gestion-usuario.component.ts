@@ -27,7 +27,7 @@ export class GestionUsuarioComponent implements OnInit {
   obtenerRolesUsuario(): void {
     this.estaCargando = true;
     const usuarioId = +this.route.snapshot.paramMap.get('id');
-    this.authServicio.obtenerRoles(usuarioId).subscribe();
+    //this.authServicio.obtenerRoles(usuarioId).subscribe();
   }
 
 }

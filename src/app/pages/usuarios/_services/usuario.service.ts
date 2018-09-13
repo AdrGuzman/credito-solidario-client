@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators'
 
 // Importaciones de la aplicación
 import { environment } from './../../../../environments/environment';
-import { Usuario } from './../usuario';
+import { Usuario } from './../../../shared/modelos/usuario';
 import { HttpErrorHandler, HandleError } from '../../../shared/_services/http-handle-error.service';
 
 @Injectable({

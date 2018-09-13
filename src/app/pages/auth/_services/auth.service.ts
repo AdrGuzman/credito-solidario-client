@@ -20,13 +20,15 @@ const httpOptions = {
 })
 export class AuthService {
   public usuarioActual: Usuario;
-  public roles: Rol[];
+  public sistemas: Sistema[];
+
   private readonly apiUrl = environment.apiUrl;
   private loginUrl = this.apiUrl + '/login';
   private logoutUrl = this.apiUrl + '/logout';
   private meUrl = this.apiUrl + '/me';
   private rolesUrl = this.apiUrl + '/auth';
   private contraseniaUrl = this.apiUrl + '/password';
+  private sistemasUrl = this.apiUrl + '/sistemas';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -42,7 +44,7 @@ export class AuthService {
 
         if (token) {
           this.setToken(token);
-          //this.obtenerUsuario().subscribe();
+          this.obtenerUsuario().subscribe();
           //this.obtenerRoles(this.usuarioActual.id).subscribe();
           //this.roles = response['roles'];
         }
@@ -91,9 +93,17 @@ export class AuthService {
     return false;
   }
 
-  //obtenerSistemas(usuario: number): Observable<Sistema>
+  obtenerSistemas(usuario: number): Observable<Sistema[]> {
+    return this.http.get(this.apiUrl + '/auth/' + usuario + '/sistemas').pipe(
+      tap(
+        (sistemas: Sistema[]) => {
+          this.sistemas = sistemas;
+        }
+      )
+    );
+  }
 
-  obtenerRoles(usuario: number): Observable<Rol[]> {
+  /*obtenerRoles(usuario: number): Observable<Rol[]> {
     return this.http.get(this.rolesUrl + '/' + usuario + '/roles').pipe(
       tap(
         (roles: Rol[]) => {
@@ -101,7 +111,7 @@ export class AuthService {
         }
       )
     );
-  }
+  }*/
 
   cambiarContrasenia(usuario: number, contrasenia: string): Observable<any> {
     const request = JSON.stringify({

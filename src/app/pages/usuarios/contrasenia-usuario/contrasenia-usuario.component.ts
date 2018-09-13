@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { ValidacionContrasenia } from '../../../shared/validaciones/validacion-contrasenia';
 import { UsuarioService } from '../_services/usuario.service';
 import { AuthService } from '../../auth/_services/auth.service';
-import { Usuario } from '../usuario';
+import { Usuario } from '../../../shared/modelos/usuario';
 
 @Component({
   selector: 'app-contrasenia-usuario',

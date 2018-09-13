@@ -14,7 +14,7 @@
   </mat-menu>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav [mode]="side" [opened]="false" role="navigation" fixedInViewport="true">
+  <mat-sidenav #sidenav [mode]="side" [(opened)]="opened" (opened)="onObtenerSistemas(auth.usuarioActual?.id)" role="navigation" fixedInViewport="true">
     <mat-nav-list>
       <a *ngIf="!auth.estaAutenticado()" mat-list-item href="#">Inicio</a>
       <a *ngIf="!auth.estaAutenticado()" mat-list-item href="#">Acerca de nosotros</a>
@@ -22,10 +22,14 @@
       <a *ngIf="!auth.estaAutenticado()" mat-list-item href="#">Historias de éxito</a>
       <mat-divider *ngIf="!auth.estaAutenticado()"></mat-divider>
       <mat-list *ngIf="auth.estaAutenticado()">
-        <h3 mat-subheader>Módulos</h3>
-        <mat-list-item *ngFor="let rol of auth.roles">
-          <mat-icon mat-list-icon>folder</mat-icon>
-          <a mat-line [routerLink]="['/usuarios']">{{rol.nombre}}</a>
+        <h3 mat-subheader>Sistemas</h3>
+        <mat-list-item *ngIf="estaCargando">
+          <mat-progress-spinner class="spinner-progreso" mat-list-icon [color]="primary" mode='indeterminate' [diameter]="20"></mat-progress-spinner>
+          <a mat-line [routerLink]="['/']">Cargando...</a>
+        </mat-list-item>
+        <mat-list-item *ngFor="let sistema of auth.sistemas">
+          <mat-icon mat-list-icon color="primary">folder</mat-icon>
+          <a mat-line [routerLink]="['/usuarios']">{{sistema.nombre}}</a>
         </mat-list-item>
       </mat-list>
       <a *ngIf="!auth.estaAutenticado()" mat-list-item [routerLink]="['/login']">Login</a>
