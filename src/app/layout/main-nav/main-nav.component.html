@@ -13,6 +13,7 @@
     <button mat-menu-item (click)="onLogout();">Cerrar sesión</button>
   </mat-menu>
 </mat-toolbar>
+<mat-progress-bar *ngIf="cargandoRuta" color="accent" mode="indeterminate"></mat-progress-bar>
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav [mode]="side" [(opened)]="opened" (opened)="onObtenerSistemas(auth.usuarioActual?.id)" role="navigation" fixedInViewport="true">
     <mat-nav-list>
@@ -21,17 +22,30 @@
       <a *ngIf="!auth.estaAutenticado()" mat-list-item href="#">Noticias</a>
       <a *ngIf="!auth.estaAutenticado()" mat-list-item href="#">Historias de éxito</a>
       <mat-divider *ngIf="!auth.estaAutenticado()"></mat-divider>
-      <mat-list *ngIf="auth.estaAutenticado()">
-        <h3 mat-subheader>Sistemas</h3>
-        <mat-list-item *ngIf="estaCargando">
-          <mat-progress-spinner class="spinner-progreso" mat-list-icon [color]="primary" mode='indeterminate' [diameter]="20"></mat-progress-spinner>
-          <a mat-line [routerLink]="['/']">Cargando...</a>
-        </mat-list-item>
-        <mat-list-item *ngFor="let sistema of auth.sistemas">
-          <mat-icon mat-list-icon color="primary">folder</mat-icon>
-          <a mat-line [routerLink]="['/usuarios']">{{sistema.nombre}}</a>
-        </mat-list-item>
-      </mat-list>
+      <mat-accordion *ngIf="auth.estaAutenticado()">
+        <mat-expansion-panel *ngIf="estaCargando">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-progress-spinner class="spinner-progreso" mat-list-icon [color]="primary" mode='indeterminate' [diameter]="20"></mat-progress-spinner>Cargando...
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngFor="let sistema of auth.sistemas" (opened)="onObtenerModulos(auth.usuarioActual?.id, sistema.id)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{sistema.nombre}}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngIf="estaCargando">
+              <mat-progress-spinner class="spinner-progreso" mat-list-icon [color]="primary" mode='indeterminate' [diameter]="20"></mat-progress-spinner>
+              <a mat-line [routerLink]="['/']">Cargando...</a>
+            </mat-list-item>
+            <mat-list-item *ngFor="let modulo of auth.modulos">
+              <mat-icon mat-list-icon color="primary">folder</mat-icon>
+              <a mat-line [routerLink]="[modulo.ruta]">{{modulo.nombre}}</a>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
       <a *ngIf="!auth.estaAutenticado()" mat-list-item [routerLink]="['/login']">Login</a>
       <button *ngIf="auth.estaAutenticado()" mat-button [matMenuTriggerFor]="menuside">{{ auth.usuarioActual?.nombre }}</button>
       <mat-menu #menuside="matMenu">

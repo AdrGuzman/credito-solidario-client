@@ -8,6 +8,7 @@ import { environment } from './../../../../environments/environment';
 import { Usuario } from '../../../shared/modelos/usuario';
 import { Sistema } from '../../../shared/modelos/sistema';
 import { Rol } from '../../../shared/modelos/rol';
+import { Modulo } from '../../../shared/modelos/modulo';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,6 +22,8 @@ const httpOptions = {
 export class AuthService {
   public usuarioActual: Usuario;
   public sistemas: Sistema[];
+  public modulos: Modulo[];
+  public roles: Rol[];
 
   private readonly apiUrl = environment.apiUrl;
   private loginUrl = this.apiUrl + '/login';
@@ -103,7 +106,17 @@ export class AuthService {
     );
   }
 
-  /*obtenerRoles(usuario: number): Observable<Rol[]> {
+  obtenerModulos(usuario: number, sistema: number): Observable<Modulo[]> {
+    return this.http.get(this.apiUrl + '/auth/' + usuario + '/' + sistema + '/modulos').pipe(
+      tap(
+        (modulos: Modulo[]) => {
+          this.modulos = modulos;
+        }
+      )
+    );
+  }
+
+  obtenerRoles(usuario: number): Observable<Rol[]> {
     return this.http.get(this.rolesUrl + '/' + usuario + '/roles').pipe(
       tap(
         (roles: Rol[]) => {
@@ -111,7 +124,7 @@ export class AuthService {
         }
       )
     );
-  }*/
+  }
 
   cambiarContrasenia(usuario: number, contrasenia: string): Observable<any> {
     const request = JSON.stringify({

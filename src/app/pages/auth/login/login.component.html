@@ -12,11 +12,11 @@
           </mat-form-field>
         </mat-card-content>
         <mat-card-actions class="derecha">
-          <button mat-flat-button color="primary" type="submit">
-            Iniciar<i *ngIf="!estaCargando" class="material-icons">check</i>
-            <mat-progress-spinner *ngIf="estaCargando" mode="indeterminate" [diameter]="20" color="warn" class="spinner-progreso"></mat-progress-spinner></button>
-          <button mat-flat-button color="warn" type="button">
-            Cancelar<i class="material-icons">clear</i>            
+          <button mat-flat-button color="primary" type="submit" [disabled]="estaCargando">            
+              Iniciar<mat-icon>check</mat-icon>
+          </button>
+          <button mat-flat-button color="warn" type="button" [disabled]="estaCargando">
+            Cancelar<mat-icon>close</mat-icon>
           </button>
         </mat-card-actions>
       </mat-card>

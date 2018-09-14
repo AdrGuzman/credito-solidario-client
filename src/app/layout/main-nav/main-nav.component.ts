@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Router } from  '@angular/router';
+import { Router, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart } from  '@angular/router';
 import { Title } from  '@angular/platform-browser';
 
 // Importaciones de la aplicación
@@ -15,8 +12,26 @@ import { AuthService } from  '../../pages/auth/_services/auth.service';
 })
 export class MainNavComponent {
   estaCargando: boolean = false;
+  cargandoRuta: boolean = false;
 
-  public constructor(private titleTagService: Title, public auth: AuthService, private router: Router) {}
+  public constructor(private titleTagService: Title, public auth: AuthService, private router: Router) {
+    this.router.events.subscribe((event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart:
+          this.cargandoRuta = true;
+          break;
+
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError:
+          this.cargandoRuta = false;
+          break;
+      
+        default:
+          break;
+      }
+    });
+  }
 
   public setTitle(pageTitle: string) {
     this.titleTagService.setTitle(pageTitle);
@@ -40,6 +55,15 @@ export class MainNavComponent {
       complete: () => this.estaCargando = false
     }
     this.auth.obtenerSistemas(id).subscribe(observer);
+  }
+
+  onObtenerModulos(usuario: number, sistema: number) {
+    this.estaCargando = true;
+    const observer = {
+      next: x => console,
+      complete: () => this.estaCargando = false
+    }
+    this.auth.obtenerModulos(usuario, sistema).subscribe(observer);
   }
 
   /*onObtenerRoles(id: number) {

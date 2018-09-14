@@ -17,6 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { BusquedaUsuarioPipe } from './_pipes/busqueda-usuario.pipe';
 import { ContraseniaUsuarioComponent } from './contrasenia-usuario/contrasenia-usuario.component';
@@ -39,7 +40,8 @@ import { GestionUsuarioComponent } from './gestion-usuario/gestion-usuario.compo
     MatMenuModule,
     MatListModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatExpansionModule
   ],
   declarations: [
     UsuariosComponent,

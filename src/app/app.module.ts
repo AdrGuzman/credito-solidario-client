@@ -24,6 +24,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpErrorHandler } from './shared/_services/http-handle-error.service';
 import { AppHttpInterceptorService } from './shared/_services/http-interceptor.service';
 
@@ -51,7 +53,9 @@ import { AppHttpInterceptorService } from './shared/_services/http-interceptor.s
     MatMenuModule,
     MatDividerModule,
     MatDialogModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
     BrowserAnimationsModule,
     FlexLayoutModule
   ],
