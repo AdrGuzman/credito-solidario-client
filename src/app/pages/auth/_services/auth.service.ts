@@ -9,6 +9,7 @@ import { Usuario } from '../../../shared/modelos/usuario';
 import { Sistema } from '../../../shared/modelos/sistema';
 import { Rol } from '../../../shared/modelos/rol';
 import { Modulo } from '../../../shared/modelos/modulo';
+import { RolesUsuarios } from '../../../shared/modelos/roles-usuarios';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -132,6 +133,20 @@ export class AuthService {
       contrasenia: contrasenia
     });
     return this.http.post(this.contraseniaUrl, request, httpOptions);
+  }
+
+  guardarRoles(roles: RolesUsuarios[]): Observable<any> {
+    /*let contadorRoles = 0;
+    roles.forEach(function(rol) {
+      this.http.post(this.rolesUrl, rol, httpOptions);
+
+      contadorRoles++;
+
+      if (contadorRoles === roles.length) {
+        return 1;
+      }
+    });*/
+    return this.http.post(this.apiUrl + "/roles", roles, httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {

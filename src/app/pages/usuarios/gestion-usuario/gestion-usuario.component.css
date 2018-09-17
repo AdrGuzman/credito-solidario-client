@@ -1,3 +1,13 @@
 .espacio-toolbar {
     flex: 1 1 auto;
 }
+
+.mat-input-element:disabled {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.data-table {
+    width: 100%;
+    overflow: auto;
+    margin: 15px auto;
+}

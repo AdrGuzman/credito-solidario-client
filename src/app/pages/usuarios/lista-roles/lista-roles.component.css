@@ -1,0 +1,5 @@
+.data-table {
+    width: 100%;
+    overflow: auto;
+    margin: 15px auto;
+}

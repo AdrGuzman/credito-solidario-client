@@ -1,4 +1,4 @@
-<div>
+<div class="mat-elevation-z0">
   <form [formGroup]="formularioUsuario" novalidate>
     <mat-card class="datos-usuario">
       <mat-card-header>
@@ -8,17 +8,14 @@
         <mat-toolbar>
           <mat-toolbar-row>
             <span class="espacio-toolbar"></span>            
-              <button mat-icon-button>
+              <button mat-icon-button (click)="abrirDialogoEditar()">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-icon-button>
                 <mat-icon>thumb_down</mat-icon>
               </button>
-              <button mat-icon-button>
+              <button mat-icon-button (click)="abrirDialogoContrasenia()">
                 <mat-icon>lock</mat-icon>
-              </button>
-              <button mat-icon-button>
-                <mat-icon>add</mat-icon>
               </button>
           </mat-toolbar-row>
         </mat-toolbar>
@@ -40,28 +37,28 @@
       <h1>Roles asignados</h1>
     </mat-card-header>
     <mat-card-content>
-      <table mat-table #table matSort aria-label="Elements" [dataSource]="dataSource" class="data-table">
-        <!-- Columna Id rol -->
-        <ng-container matColumnDef="rol_id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rol ID</th>
+      <mat-toolbar>
+        <mat-toolbar-row>
+          <span class="espacio-toolbar"></span>
+            <button mat-icon-button (click)="abrirDialogoRoles()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <table mat-table #table [dataSource]="dataSource" class="data-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
           <td mat-cell *matCellDef="let row">{{row.id}}</td>
         </ng-container>
-
-        <!-- Columna Nombre -->
+    
+        <!-- Nombre Column -->
         <ng-container matColumnDef="nombre">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
           <td mat-cell *matCellDef="let row">{{row.nombre}}</td>
         </ng-container>
-
-        <!-- Columna Detalle -->
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
-            <button mat-button (click)="abrirDialogoDetalle(row.rol_id)" color="primary"><mat-icon>remove_red_eye</mat-icon></button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </mat-card-content>

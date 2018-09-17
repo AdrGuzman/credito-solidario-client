@@ -18,10 +18,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { BusquedaUsuarioPipe } from './_pipes/busqueda-usuario.pipe';
 import { ContraseniaUsuarioComponent } from './contrasenia-usuario/contrasenia-usuario.component';
 import { GestionUsuarioComponent } from './gestion-usuario/gestion-usuario.component';
+import { ListaRolesComponent } from './lista-roles/lista-roles.component';
 
 @NgModule({
   imports: [
@@ -41,7 +43,8 @@ import { GestionUsuarioComponent } from './gestion-usuario/gestion-usuario.compo
     MatListModule,
     MatDialogModule,
     MatToolbarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule
   ],
   declarations: [
     UsuariosComponent,
@@ -49,6 +52,7 @@ import { GestionUsuarioComponent } from './gestion-usuario/gestion-usuario.compo
     BusquedaUsuarioPipe,
     RegistroUsuarioComponent,
     ContraseniaUsuarioComponent,
-    GestionUsuarioComponent,]
+    GestionUsuarioComponent,
+    ListaRolesComponent]
 })
 export class UsuariosModule { }

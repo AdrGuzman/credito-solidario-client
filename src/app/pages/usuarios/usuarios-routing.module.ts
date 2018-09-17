@@ -7,13 +7,15 @@ import { AuthGuard } from '../auth/_guards/auth.guard';
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 import { ContraseniaUsuarioComponent } from './contrasenia-usuario/contrasenia-usuario.component';
 import { GestionUsuarioComponent } from './gestion-usuario/gestion-usuario.component';
+import { ListaRolesComponent } from './lista-roles/lista-roles.component';
 
 const routes: Routes = [
   {path: 'usuarios', children: [
     {path: '', component: ListaUsuariosComponent},
     {path: ':id', component: GestionUsuarioComponent},
     {path: ':id/registro', component: RegistroUsuarioComponent},
-    {path: ':id/contrasenia', component: ContraseniaUsuarioComponent}
+    {path: ':id/contrasenia', component: ContraseniaUsuarioComponent},
+    {path: ':id/rol', component: ListaRolesComponent}
   ], canActivate: [AuthGuard]}
 ];
 

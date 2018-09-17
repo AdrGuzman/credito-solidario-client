@@ -1,19 +1,19 @@
 
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GestionUsuarioComponent } from './gestion-usuario.component';
+import { ListaRolesComponent } from './lista-roles.component';
 
-describe('GestionUsuarioComponent', () => {
-  let component: GestionUsuarioComponent;
-  let fixture: ComponentFixture<GestionUsuarioComponent>;
+describe('ListaRolesComponent', () => {
+  let component: ListaRolesComponent;
+  let fixture: ComponentFixture<ListaRolesComponent>;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ GestionUsuarioComponent ]
+      declarations: [ ListaRolesComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GestionUsuarioComponent);
+    fixture = TestBed.createComponent(ListaRolesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

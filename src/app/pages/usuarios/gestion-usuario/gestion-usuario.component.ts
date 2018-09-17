@@ -1,37 +1,41 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-
-import { UsuarioService } from '../../usuarios/_services/usuario.service';
-import { RolesUsuarios } from '../../../shared/modelos/roles-usuarios';
-import { AuthService } from '../../auth/_services/auth.service';
-import { Usuario } from '../../../shared/modelos/usuario';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Rol } from '../../../shared/modelos/rol';
+import { AuthService } from '../../auth/_services/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { UsuarioService } from '../_services/usuario.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Usuario } from '../../../shared/modelos/usuario';
+import { RegistroUsuarioComponent } from '../registro-usuario/registro-usuario.component';
+import { ContraseniaUsuarioComponent } from '../contrasenia-usuario/contrasenia-usuario.component';
+import { ListaRolesComponent } from '../lista-roles/lista-roles.component';
 
 @Component({
-  selector: 'app-gestion-usuario',
+  selector: 'app-/pages/usuarios/gestion-usuario',
   templateUrl: './gestion-usuario.component.html',
   styleUrls: ['./gestion-usuario.component.css']
 })
 export class GestionUsuarioComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  usuario: Usuario = new Usuario();
-  estaCargando: Boolean = false;
-  roles: Rol[];
   dataSource: MatTableDataSource<Rol>;
-  displayColumns = ['id', 'nombre', 'acciones'];
+  estaCargando: boolean = false;
+  roles: Rol[];
+  usuario: Usuario = new Usuario();
   formularioUsuario: FormGroup;
+
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['id', 'nombre'];
 
   constructor(
     private authServicio: AuthService,
-    private router: ActivatedRoute,
     private usuarioServicio: UsuarioService,
+    private router: ActivatedRoute,
     private fb: FormBuilder,
-    private route: ActivatedRoute) {
-      this.crearFormulario();
-    }
+    public dialogo: MatDialog
+  ) {
+    this.crearFormulario();
+  }
 
   ngOnInit() {
     this.obtenerUsuario();
@@ -67,10 +71,42 @@ export class GestionUsuarioComponent implements OnInit {
   obtenerRolesUsuario(): void {
     this.estaCargando = true;
     const usuarioId = +this.router.snapshot.paramMap.get('id');
-    this.authServicio.obtenerRoles(usuarioId).subscribe(
-      response => this.handleResponse(response),
-      error => this.handleError(error)
+    if (usuarioId) {
+      this.authServicio.obtenerRoles(usuarioId).subscribe(
+        response => this.handleResponse(response),
+        error => this.handleError(error)
+      );
+    }
+  }
+
+  abrirDialogoEditar(): void {
+    const usuarioId = +this.router.snapshot.paramMap.get('id');
+    const referenciaDialogo = this.dialogo.open(RegistroUsuarioComponent, {
+      width: '550px',
+      data: usuarioId
+    });
+
+    referenciaDialogo.afterClosed().subscribe(
+      result => {
+        this.obtenerUsuario();
+      }
     );
+  }
+
+  abrirDialogoContrasenia(): void {
+    const usuarioId = +this.router.snapshot.paramMap.get('id');
+    const referenciaDialogo = this.dialogo.open(ContraseniaUsuarioComponent, {
+      width: '550px',
+      data: usuarioId
+    });
+  }
+
+  abrirDialogoRoles(): void {
+    const usuarioId = +this.router.snapshot.paramMap.get('id');
+    const referenciaDialogo = this.dialogo.open(ListaRolesComponent, {
+      width: '550px',
+      data: usuarioId
+    });
   }
 
   protected handleResponse(response: Rol[]) {
@@ -82,6 +118,6 @@ export class GestionUsuarioComponent implements OnInit {
 
   protected handleError(error: any) {
     this.estaCargando = false;
-    console.error(error);
+    console.log(error);
   }
 }
