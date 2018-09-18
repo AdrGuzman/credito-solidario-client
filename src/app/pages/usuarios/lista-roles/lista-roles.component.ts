@@ -17,7 +17,7 @@ export class ListaRolesComponent implements OnInit {
   dataSource: MatTableDataSource<Rol>;
   selection = new SelectionModel<Rol>(true, []);
   roles: Rol[];
-  rolesUsuarios: RolesUsuarios[];
+  rolesUsuarios: RolesUsuarios[] = [];
   estaCargando: boolean = false;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -54,16 +54,28 @@ export class ListaRolesComponent implements OnInit {
   }
 
   protected guardarRoles(): void {
-    //this.dataSource.data.forEach();
-    console.log('seleccionados',this.selection.selected);
     const rolesSeleccionados = this.selection.selected;
     let contadorRoles = 0;
+    let usuarioId = this.data;
+    //const rolesAsignados: RolesUsuarios[] = [];
+    const me = this;
+    console.log(rolesSeleccionados);
     rolesSeleccionados.forEach(function(rol) {
       const rolUsuario: RolesUsuarios = new RolesUsuarios();
-      rolUsuario.usuarioId = rol.id;
-      this.rolesUsuarios.push();
+      const fechaActual = new Date();
+      rolUsuario.usuarioId = usuarioId;
+      rolUsuario.rolId = rol.id;
+      rolUsuario.fechaExpiracion = fechaActual.toString();
+      rolUsuario.estado = 1;
+      me.rolesUsuarios.push(rolUsuario);
+      //this.rolesUsuarios.push(rolUsuario);
+      contadorRoles++;
+      if (contadorRoles == rolesSeleccionados.length) {
+        me.authServicio.guardarRol(me.rolesUsuarios).subscribe(
+          response => me.onNoClick()
+        );
+      }
     });
-    this.authServicio.guardarRoles(this.rolesUsuarios).subscribe();
   }
 
   protected obtenerRoles(): void {

@@ -135,7 +135,7 @@ export class AuthService {
     return this.http.post(this.contraseniaUrl, request, httpOptions);
   }
 
-  guardarRoles(roles: RolesUsuarios[]): Observable<any> {
+  guardarRol(roles: RolesUsuarios[]): Observable<any> {
     /*let contadorRoles = 0;
     roles.forEach(function(rol) {
       this.http.post(this.rolesUrl, rol, httpOptions);
@@ -146,7 +146,8 @@ export class AuthService {
         return 1;
       }
     });*/
-    return this.http.post(this.apiUrl + "/roles", roles, httpOptions);
+    console.log('roles', roles);
+    return this.http.post(this.apiUrl + "/auth/roles", roles, httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {
