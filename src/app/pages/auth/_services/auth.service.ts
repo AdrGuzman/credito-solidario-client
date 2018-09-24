@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams,  HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -136,18 +136,8 @@ export class AuthService {
   }
 
   guardarRol(roles: RolesUsuarios[]): Observable<any> {
-    /*let contadorRoles = 0;
-    roles.forEach(function(rol) {
-      this.http.post(this.rolesUrl, rol, httpOptions);
-
-      contadorRoles++;
-
-      if (contadorRoles === roles.length) {
-        return 1;
-      }
-    });*/
-    console.log('roles', roles);
-    return this.http.post(this.apiUrl + "/auth/roles", roles, httpOptions);
+    const rol = JSON.stringify(roles);
+    return this.http.post(this.apiUrl + "/auth/roles", rol, httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {

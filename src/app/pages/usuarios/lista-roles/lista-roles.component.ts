@@ -65,7 +65,7 @@ export class ListaRolesComponent implements OnInit {
       const fechaActual = new Date();
       rolUsuario.usuarioId = usuarioId;
       rolUsuario.rolId = rol.id;
-      rolUsuario.fechaExpiracion = fechaActual.toString();
+      rolUsuario.fechaExpiracion = fechaActual.toISOString();
       rolUsuario.estado = 1;
       me.rolesUsuarios.push(rolUsuario);
       //this.rolesUsuarios.push(rolUsuario);

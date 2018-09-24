@@ -25,7 +25,7 @@ export class GestionUsuarioComponent implements OnInit {
   formularioUsuario: FormGroup;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'nombre'];
+  displayedColumns = ['id', 'nombre', 'fechaExpiracion'];
 
   constructor(
     private authServicio: AuthService,
@@ -107,11 +107,18 @@ export class GestionUsuarioComponent implements OnInit {
       width: '550px',
       data: usuarioId
     });
+
+    referenciaDialogo.afterClosed().subscribe(
+      result => {
+        this.obtenerRolesUsuario();
+      }
+    );
   }
 
   protected handleResponse(response: Rol[]) {
     this.estaCargando = false;
     this.roles = response;
+    console.log(response);
     this.dataSource.data = this.roles;
     this.dataSource.sort = this.sort;
   }
