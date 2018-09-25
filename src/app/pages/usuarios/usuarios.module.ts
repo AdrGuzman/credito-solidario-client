@@ -24,6 +24,7 @@ import { BusquedaUsuarioPipe } from './_pipes/busqueda-usuario.pipe';
 import { ContraseniaUsuarioComponent } from './contrasenia-usuario/contrasenia-usuario.component';
 import { GestionUsuarioComponent } from './gestion-usuario/gestion-usuario.component';
 import { ListaRolesComponent } from './lista-roles/lista-roles.component';
+import { EditarRolComponent } from './editar-rol/editar-rol.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { ListaRolesComponent } from './lista-roles/lista-roles.component';
     RegistroUsuarioComponent,
     ContraseniaUsuarioComponent,
     GestionUsuarioComponent,
-    ListaRolesComponent]
+    ListaRolesComponent,
+    EditarRolComponent]
 })
 export class UsuariosModule { }

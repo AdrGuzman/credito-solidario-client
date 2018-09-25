@@ -1,0 +1,23 @@
+<div>
+  <form [formGroup]="formularioRol" (ngSubmit)="onSubmit()" novalidate>
+    <mat-card class="edicion-rol">
+      <mat-card-header>
+        <h1>Datos del rol</h1>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Nombre" id="nombre" formControlName="nombre" name="nombre" class="ancho-completo">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="datetime-local" matInput placeholder="Fecha de expiración" id="fechaExpiracion" formControlName="fechaExpiracion" name="fechaExpiracion" class="ancho-completo">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Estado" id="estado" formControlName="estado" name="estado" class="ancho-completo">
+            <mat-option [value]="1">Activo</mat-option>
+            <mat-option [value]="0">Inactivo</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

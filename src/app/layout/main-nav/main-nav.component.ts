@@ -11,7 +11,8 @@ import { AuthService } from  '../../pages/auth/_services/auth.service';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent {
-  estaCargando: boolean = false;
+  estaCargandoSistemas: boolean = false;
+  estaCargandoModulos: boolean = false;
   cargandoRuta: boolean = false;
 
   public constructor(private titleTagService: Title, public auth: AuthService, private router: Router) {
@@ -49,19 +50,19 @@ export class MainNavComponent {
   }
 
   onObtenerSistemas(id: number) {
-    this.estaCargando = true;
+    this.estaCargandoSistemas = true;
     const observer = {
       next: x => console.log(),
-      complete: () => this.estaCargando = false
+      complete: () => this.estaCargandoSistemas = false
     }
     this.auth.obtenerSistemas(id).subscribe(observer);
   }
 
   onObtenerModulos(usuario: number, sistema: number) {
-    this.estaCargando = true;
+    this.estaCargandoModulos = true;
     const observer = {
       next: x => console,
-      complete: () => this.estaCargando = false
+      complete: () => this.estaCargandoModulos = false
     }
     this.auth.obtenerModulos(usuario, sistema).subscribe(observer);
   }

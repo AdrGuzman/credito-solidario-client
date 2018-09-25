@@ -24,7 +24,7 @@
       <a *ngIf="!auth.estaAutenticado()" mat-list-item href="#">Historias de éxito</a>
       <mat-divider *ngIf="!auth.estaAutenticado()"></mat-divider>
       <mat-accordion *ngIf="auth.estaAutenticado()">
-        <mat-expansion-panel *ngIf="estaCargando">
+        <mat-expansion-panel *ngIf="estaCargandoSistemas">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-progress-spinner class="spinner-progreso" mat-list-icon [color]="primary" mode='indeterminate' [diameter]="20"></mat-progress-spinner>Cargando...
@@ -36,7 +36,7 @@
             <mat-panel-title>{{sistema.nombre}}</mat-panel-title>
           </mat-expansion-panel-header>
           <mat-list>
-            <mat-list-item *ngIf="estaCargando">
+            <mat-list-item *ngIf="estaCargandoModulos">
               <mat-progress-spinner class="spinner-progreso" mat-list-icon [color]="primary" mode='indeterminate' [diameter]="20"></mat-progress-spinner>
               <a mat-line [routerLink]="['/']">Cargando...</a>
             </mat-list-item>

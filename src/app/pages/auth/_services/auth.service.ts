@@ -25,6 +25,7 @@ export class AuthService {
   public sistemas: Sistema[];
   public modulos: Modulo[];
   public roles: Rol[];
+  public rolUsuario: RolesUsuarios;
 
   private readonly apiUrl = environment.apiUrl;
   private loginUrl = this.apiUrl + '/login';
@@ -122,6 +123,16 @@ export class AuthService {
       tap(
         (roles: Rol[]) => {
           this.roles = roles;
+        }
+      )
+    );
+  }
+
+  obtenerRol(usuario: number): Observable<Rol> {
+    return this.http.get(this.apiUrl + '/auth/' + usuario + '/rol').pipe(
+      tap(
+        (rol: RolesUsuarios) => {
+          this.rolUsuario = rol;
         }
       )
     );
