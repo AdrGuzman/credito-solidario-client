@@ -9,6 +9,7 @@ import { Usuario } from '../../../shared/modelos/usuario';
 import { RegistroUsuarioComponent } from '../registro-usuario/registro-usuario.component';
 import { ContraseniaUsuarioComponent } from '../contrasenia-usuario/contrasenia-usuario.component';
 import { ListaRolesComponent } from '../lista-roles/lista-roles.component';
+import { EditarRolComponent } from '../editar-rol/editar-rol.component';
 
 @Component({
   selector: 'app-/pages/usuarios/gestion-usuario',
@@ -25,7 +26,7 @@ export class GestionUsuarioComponent implements OnInit {
   formularioUsuario: FormGroup;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'nombre', 'fechaExpiracion'];
+  displayedColumns = ['id', 'nombre', 'fechaExpiracion', 'acciones'];
 
   constructor(
     private authServicio: AuthService,
@@ -115,10 +116,24 @@ export class GestionUsuarioComponent implements OnInit {
     );
   }
 
+  abrirDialogoEditarRol(rol: number): void {
+    const usuarioId = +this.router.snapshot.paramMap.get('id');
+    const rolId = rol;
+    const referenciaDialogo = this.dialogo.open(EditarRolComponent, {
+      width: '550px',
+      data: {rolId: rolId, usuarioId: usuarioId}
+    });
+
+    referenciaDialogo.afterClosed().subscribe(
+      result => {
+        this.obtenerRolesUsuario();
+      }
+    );
+  }
+
   protected handleResponse(response: Rol[]) {
     this.estaCargando = false;
     this.roles = response;
-    console.log(response);
     this.dataSource.data = this.roles;
     this.dataSource.sort = this.sort;
   }

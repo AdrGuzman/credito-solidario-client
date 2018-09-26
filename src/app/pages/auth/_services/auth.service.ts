@@ -128,8 +128,8 @@ export class AuthService {
     );
   }
 
-  obtenerRol(usuario: number): Observable<Rol> {
-    return this.http.get(this.apiUrl + '/auth/' + usuario + '/rol').pipe(
+  obtenerRol(usuario: number, rol: number): Observable<RolesUsuarios> {
+    return this.http.get(this.apiUrl + '/auth/' + usuario + '/' + rol + '/roles').pipe(
       tap(
         (rol: RolesUsuarios) => {
           this.rolUsuario = rol;
@@ -148,7 +148,12 @@ export class AuthService {
 
   guardarRol(roles: RolesUsuarios[]): Observable<any> {
     const rol = JSON.stringify(roles);
-    return this.http.post(this.apiUrl + "/auth/roles", rol, httpOptions);
+    return this.http.post(this.apiUrl + '/auth/roles', rol, httpOptions);
+  }
+
+  actualizarRol(rol: RolesUsuarios): Observable<any> {
+    const rolUsuario = JSON.stringify(rol);
+    return this.http.put(this.apiUrl + '/auth/roles', rolUsuario, httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {

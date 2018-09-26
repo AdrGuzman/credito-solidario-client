@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 import { BusquedaUsuarioPipe } from './_pipes/busqueda-usuario.pipe';
 import { ContraseniaUsuarioComponent } from './contrasenia-usuario/contrasenia-usuario.component';
@@ -45,7 +46,8 @@ import { EditarRolComponent } from './editar-rol/editar-rol.component';
     MatDialogModule,
     MatToolbarModule,
     MatExpansionModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
   ],
   declarations: [
     UsuariosComponent,
