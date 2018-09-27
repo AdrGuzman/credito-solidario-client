@@ -50,9 +50,8 @@ export class EditarRolComponent implements OnInit {
     this.authServicio.obtenerRol(usuarioId, rolId).subscribe(usuarioRol => {
       this.estaCargando = false;
       this.rolUsuario = usuarioRol;
-      console.log(this.rolUsuario);
       this.formularioRol.patchValue({
-        fechaExpiracion: this.rolUsuario.fechaExpiracion,
+        fechaExpiracion: new Date(this.rolUsuario.fechaExpiracion).toISOString().substring(0, 16),
         estado: this.rolUsuario.estado
       });
     });
