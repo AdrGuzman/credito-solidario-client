@@ -11,14 +11,20 @@ import { ListaRolesComponent } from './lista-roles/lista-roles.component';
 import { EditarRolComponent } from './editar-rol/editar-rol.component';
 
 const routes: Routes = [
-  {path: 'usuarios', children: [
-    {path: '', component: ListaUsuariosComponent},
-    {path: ':id', component: GestionUsuarioComponent},
-    {path: ':id/registro', component: RegistroUsuarioComponent},
-    {path: ':id/contrasenia', component: ContraseniaUsuarioComponent},
-    {path: ':id/roles', component: ListaRolesComponent},
-    {path: ':id/rol', component: EditarRolComponent}
-  ], canActivate: [AuthGuard]}
+  {
+    path: 'usuarios',
+    data: {
+      breadcrumb: 'Usuarios'
+    },
+    children: [
+      {path: '', component: ListaUsuariosComponent},
+      {path: ':id', component: GestionUsuarioComponent},
+      {path: ':id/registro', component: RegistroUsuarioComponent},
+      {path: ':id/contrasenia', component: ContraseniaUsuarioComponent},
+      {path: ':id/roles', component: ListaRolesComponent},
+      {path: ':id/rol', component: EditarRolComponent}
+    ], canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

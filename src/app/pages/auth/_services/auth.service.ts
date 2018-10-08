@@ -10,6 +10,7 @@ import { Sistema } from '../../../shared/modelos/sistema';
 import { Rol } from '../../../shared/modelos/rol';
 import { Modulo } from '../../../shared/modelos/modulo';
 import { RolesUsuarios } from '../../../shared/modelos/roles-usuarios';
+import { HashMap } from '../../../shared/modelos/hash-map';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,15 +18,21 @@ const httpOptions = {
   })
 };
 
+export interface Permiso {
+  nombre?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   public usuarioActual: Usuario;
   public sistemas: Sistema[];
   public modulos: Modulo[];
   public roles: Rol[];
   public rolUsuario: RolesUsuarios;
+  public autorizaciones: Permiso[];
 
   private readonly apiUrl = environment.apiUrl;
   private loginUrl = this.apiUrl + '/login';
@@ -84,6 +91,7 @@ export class AuthService {
       tap(
         (usuario: Usuario) => {
           this.usuarioActual = usuario;
+          console.log('usuario firme',this.usuarioActual);
         }
       )
     );
@@ -108,7 +116,17 @@ export class AuthService {
     );
   }
 
-  obtenerModulos(usuario: number, sistema: number): Observable<Modulo[]> {
+  obtenerModulos(usuario: number, sistema?: number): Observable<Modulo[]> {
+    if (!sistema) {
+      return this.http.get(this.apiUrl + '/auth/' + usuario + '/modulos').pipe(
+        tap(
+          (modulos: Modulo[]) => {
+            this.modulos = modulos;
+          }
+        )
+      );
+    }
+    
     return this.http.get(this.apiUrl + '/auth/' + usuario + '/' + sistema + '/modulos').pipe(
       tap(
         (modulos: Modulo[]) => {
@@ -152,8 +170,48 @@ export class AuthService {
   }
 
   actualizarRol(rol: RolesUsuarios): Observable<any> {
+    rol.actualizadoPor = this.usuarioActual.id;
     const rolUsuario = JSON.stringify(rol);
     return this.http.put(this.apiUrl + '/auth/roles', rolUsuario, httpOptions);
+  }
+
+  obtenerAutorizaciones(usuario: number, modulo: string) {
+    let usuarioAuth = usuario;
+    /*if (!usuarioAuth) {
+            if (this.usuarioActual) {
+        
+        usuarioAuth = this.usuarioActual.id;
+      }
+    }*/
+    
+    return this.http.get(this.apiUrl + '/auth/autorizaciones/' + modulo + '/' + usuarioAuth).pipe(
+      tap(
+        (autorizaciones: Permiso[]) => {
+          this.autorizaciones = autorizaciones;
+          console.log('Autorizaciones', this.autorizaciones);
+          console.log('autorizaciones', autorizaciones);
+        }
+      )
+    );
+  }
+
+  tieneAutorizacion(autorizacion: string) {
+    if (this.autorizaciones && this.autorizaciones.find(permiso => {
+      return permiso.nombre === autorizacion
+    })) {
+      return true;
+    }
+    return false;
+  }
+
+  tieneModulo(modulo: string) {
+    if (this.modulos && this.modulos.find(modulo => {
+      return modulo.nombre === modulo
+    })) {
+      return true;
+    }
+
+    return false;
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -1,10 +1,8 @@
-export class Sistema {
+import { Entidad } from './entidad';
+
+export class Sistema extends Entidad {
     id?: number;
     nombre?: string;
     ruta?: string;
     estado?: number;
-    creadoPor?: number;
-    actualizadoPor?: number;
-    createdAt?: string;
-    updatedAt?: string;
 }

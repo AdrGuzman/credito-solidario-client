@@ -15,7 +15,9 @@ import { UsuariosModule } from './pages/usuarios/usuarios.module';
 import { RolesModule } from './pages/roles/roles.module';
 import { AuthModule } from './pages/auth/auth.module';
 import { MainNavComponent } from './layout/main-nav/main-nav.component';
+import { BreadcrumbComponent } from './layout/breadcrumb/breadcrumb.component';
 import { LayoutModule } from '@angular/cdk/layout';
+//import { InhabilitarSiNoAutorizadoDirective } from './shared/directivas/inhabilitarSiNoAutorizado/inhabilitar-si-no-autorizado.directive';
 
 // Angular Material modules
 import { MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatMenuModule, MATERIAL_SANITY_CHECKS } from '@angular/material';
@@ -33,7 +35,9 @@ import { AppHttpInterceptorService } from './shared/_services/http-interceptor.s
 @NgModule({
   declarations: [
     AppComponent,
-    MainNavComponent
+    MainNavComponent,
+    BreadcrumbComponent,
+    //InhabilitarSiNoAutorizadoDirective
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ import { AppHttpInterceptorService } from './shared/_services/http-interceptor.s
     MatExpansionModule,
     MatCheckboxModule,
     BrowserAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    
   ],
   providers: [HttpErrorHandler, {
     provide: HTTP_INTERCEPTORS,

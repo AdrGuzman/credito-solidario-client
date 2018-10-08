@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.authService.onLogin(this.formularioInicio.value).subscribe(
       (response) => {
         this.estaCargando = false;
-        this.router.navigate(['/usuarios']);
+        this.router.navigate(['/']);
       },
       (response) => {
         if (response.status === 422) {

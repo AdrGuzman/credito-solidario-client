@@ -45,7 +45,6 @@ export class MainNavComponent {
       };*/
 
       this.auth.obtenerUsuario().subscribe();
-      //this.auth.obtenerRoles(this.auth.usuarioActual.id).subscribe();
     }
   }
 

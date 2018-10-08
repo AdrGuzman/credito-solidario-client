@@ -4,6 +4,7 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog} from '@angular/ma
 import { RegistroUsuarioComponent } from '../registro-usuario/registro-usuario.component';
 import { ContraseniaUsuarioComponent } from '../contrasenia-usuario/contrasenia-usuario.component';
 import { UsuarioService } from '../_services/usuario.service';
+import { AuthService } from '../../auth/_services/auth.service';
 import { Usuario } from '../../../shared/modelos/usuario';
 
 @Component({
@@ -19,7 +20,10 @@ export class ListaUsuariosComponent implements OnInit {
   dataSource: MatTableDataSource<Usuario>;
 
 
-  constructor(private usuariosServicio: UsuarioService, public dialogo: MatDialog) {}
+  constructor(
+    private usuariosServicio: UsuarioService,
+    private authServicio: AuthService,
+    public dialogo: MatDialog) {}
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'usuario', 'nombre', 'correo', 'acciones'];
@@ -29,9 +33,14 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.dataSource = new MatTableDataSource();
     this.obtenerListaUsuarios();
   }
+
+  /*private obtenerAutorizaciones() {
+    this.authServicio.obtenerAutorizaciones(1, 'Usuarios').subscribe();
+  }*/
 
   obtenerListaUsuarios(): void {
     this.estaCargando = true;

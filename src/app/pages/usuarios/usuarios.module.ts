@@ -26,6 +26,7 @@ import { ContraseniaUsuarioComponent } from './contrasenia-usuario/contrasenia-u
 import { GestionUsuarioComponent } from './gestion-usuario/gestion-usuario.component';
 import { ListaRolesComponent } from './lista-roles/lista-roles.component';
 import { EditarRolComponent } from './editar-rol/editar-rol.component';
+import { InhabilitarSiNoAutorizadoDirective } from '../../shared/directivas/inhabilitarSiNoAutorizado/inhabilitar-si-no-autorizado.directive';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { EditarRolComponent } from './editar-rol/editar-rol.component';
     MatToolbarModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    
   ],
   declarations: [
     UsuariosComponent,
@@ -57,6 +59,7 @@ import { EditarRolComponent } from './editar-rol/editar-rol.component';
     ContraseniaUsuarioComponent,
     GestionUsuarioComponent,
     ListaRolesComponent,
-    EditarRolComponent]
+    EditarRolComponent,
+    InhabilitarSiNoAutorizadoDirective]
 })
 export class UsuariosModule { }
